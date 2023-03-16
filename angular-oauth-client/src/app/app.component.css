@@ -1,0 +1,9 @@
+main {
+    margin: 15px;
+}
+
+.response {
+    padding: 4px;
+    background-color: rgb(221, 228, 233);
+    font-weight: bold;
+}
