@@ -1,0 +1,11 @@
+server.port: 8081
+
+logging.level:
+  root: DEBUG
+
+# Finally, let's add the configuration needed for validating JWT token against our Keycloak server:
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt.issuer-uri: http://localhost:8080/realms/SpringBootKeycloak
