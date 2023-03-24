@@ -1,0 +1,26 @@
+{
+  "realm" : "master",
+  "users" : [ {
+    "id" : "271c2cdc-2fa5-4898-9082-51383b43814c",
+    "createdTimestamp" : 1678371883684,
+    "username" : "admin",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : false,
+    "credentials" : [ {
+      "id" : "eac0cf52-4344-4501-91d6-d18e651986cb",
+      "type" : "password",
+      "createdDate" : 1678371883759,
+      "secretData" : "{\"value\":\"aqG/4jHzPX5/abvaXscZkHHpV4SQVAFnSe5qHcHChro=\",\"salt\":\"R8Id/Fte2b1n1t8Ajn2ocA==\",\"additionalParameters\":{}}",
+      "credentialData" : "{\"hashIterations\":27500,\"algorithm\":\"pbkdf2-sha256\",\"additionalParameters\":{}}"
+    } ],
+    "disableableCredentialTypes" : [ ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "default-roles-master", "admin" ],
+    "clientRoles" : {
+      "SpringBootKeycloak-realm" : [ "view-realm", "view-users", "query-groups", "view-authorization", "manage-realm", "manage-events", "manage-authorization", "manage-identity-providers", "query-realms", "view-identity-providers", "view-clients", "manage-users", "view-events", "manage-clients", "query-users", "query-clients", "create-client" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ ]
+  } ]
+}

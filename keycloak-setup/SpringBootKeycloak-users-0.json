@@ -1,0 +1,29 @@
+{
+  "realm" : "SpringBootKeycloak",
+  "users" : [ {
+    "id" : "c6969e4f-2315-4ebf-861b-3e8ea9004b31",
+    "createdTimestamp" : 1678372813771,
+    "username" : "user1",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : false,
+    "firstName" : "Pongo",
+    "lastName" : "Dujardin",
+    "credentials" : [ {
+      "id" : "2f7b484b-3c0a-42ab-94b1-4d71ba415e41",
+      "type" : "password",
+      "userLabel" : "My password",
+      "createdDate" : 1678372838606,
+      "secretData" : "{\"value\":\"oJFH4dgR8x927B6Tqa+nDF9Zk0OK3a8YPxGuYGgzqMY=\",\"salt\":\"AE8G+ViQPdWx2vHgkXwhVQ==\",\"additionalParameters\":{}}",
+      "credentialData" : "{\"hashIterations\":27500,\"algorithm\":\"pbkdf2-sha256\",\"additionalParameters\":{}}"
+    } ],
+    "disableableCredentialTypes" : [ ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "default-roles-springbootkeycloak", "foobar" ],
+    "clientRoles" : {
+      "login-app" : [ "user" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ ]
+  } ]
+}

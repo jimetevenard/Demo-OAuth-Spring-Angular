@@ -4,20 +4,32 @@
 
 Lancez une instance Keycloak, par exemple avec Docker
 
-    docker run -p 8080:8080 quay.io/keycloak/keycloak start-dev
+<pre><code>docker run -p 8080:8080 \
+    -v <b>$PWD/keycloak-setup</b>:/opt/keycloak/data/import \
+    quay.io/keycloak/keycloak:latest \
+    start-dev <b>--import-realm</b></code></pre>
 
 Ou en téléchargeant le binaire depuis : https://www.keycloak.org/downloads
 
 Le serveur keycloak écoute sur le port `8080`  
 Si un autre port est utilisé, mettre à jour les configs [back](spring-resource-server/src/main/resources/application.yml) et [front](angular-oauth-client/src/keycloak/keycloak-init.ts).
 
-1. Se connecter en tant qu'admin à Keycloak (credentials par défaut : `admin` / `admin`)
-2. Créer un *realm* nommé `SpringBootKeycloak`
-3. Configurer dans ce *realm* un *client* de type *OpenID Connect* et le nommer `login-app` (s'assurer qu'il est *public*)
-4. Ajouter `http://localhost:4200/*` dans la section *valid redirect URIs*
-5. Créer un utilisateur dans le *realm*, avec un nom d'utilisateur et un mot de passe
+### Configuration importée
 
-## Lancer l'aaplication Spring Boot
+La commande de lancement via Docker ci-dessus utilise le flag `--import-realm`.  
+Avec un *bind mount* du [réportoire `keycloak-setup/`](keycloak-setup) de ce dépôt.
+
+Les fichiers de setup de notre exemple sont ainsi automatiquement importés au lancement de Keycloak.
+L'instance comportera ainsi :
+
+2. Un *realm* nommé `SpringBootKeycloak`
+3. Dns ce *realm*, un *client* de type *OpenID Connect* appelé `login-app`
+4. L'URI `http://localhost:4200/*` configurée dans la section *valid redirect URIs* du *client*
+5. Un utilisateur : username `user1`, mot de passe `yop`
+
+Les application Spring et Angular s'attendent à cette configuration.
+
+## Lancer l'application Spring Boot
 
 ````sh
 cd spring-resource-server
@@ -44,8 +56,8 @@ On peut l'obtenir par appel direct à Keycloak, avec les credentials de l'utilis
 curl --location 'http://localhost:8080/realms/SpringBootKeycloak/protocol/openid-connect/token' \
     --header 'Content-Type: application/x-www-form-urlencoded' \
     --data-urlencode 'client_id=login-app' \
-    --data-urlencode 'username=<LE USERNAME>' \
-    --data-urlencode 'password=<LE MOT DE PASSE>' \
+    --data-urlencode 'username=user1' \
+    --data-urlencode 'password=yop' \
     --data-urlencode 'grant_type=password'
 ````
 
@@ -86,10 +98,10 @@ Le front ne contient qu'un seul composant racine, qui appelle les endpoints et a
 ### Front après connexion
 
 Le bouton login redirige vers la page de login Keycloak.  
-Saisir les identifiants de l'utilisateur créer lors du setup.
+Saisir les identifiants de l'utilisateur importé lors du setup.
 
 Après connection, vous serez redirigé vers le front, qui devrait ressembler alors à ceci :
 
 <img width="600px" alt="Front avec connexion" src="logged-in.png" />
 
-Le front récupère le token, (le renouvelle si nécassaire) et l'envoie au back en header de la requête.
+Le front récupère le token, (le renouvelle si nécessaire) et l'envoie au back en header de la requête.
